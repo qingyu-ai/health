@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qy.dao.SetmealDao" >
+
+    <resultMap type="com.qy.pojo.Setmeal" id="baseResultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="helpCode" property="helpCode"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="price" property="price"/>
+        <result column="remark" property="remark"/>
+        <result column="attention" property="attention"/>
+        <result column="img" property="img"/>
+    </resultMap>
+    <resultMap type="com.qy.pojo.Setmeal"
+               id="findByIdResultMap"
+               extends="baseResultMap">
+        <collection property="checkGroups"
+                    javaType="ArrayList"
+                    ofType="com.qy.pojo.CheckGroup"
+                    column="id"
+                    select="com.qy.dao.CheckGroupDao.findCheckGroupById">
+        </collection>
+    </resultMap>
+
+
+    <!--新增-->
+    <insert id="add" parameterType="com.qy.pojo.Setmeal">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_setmeal
+        (code,name,sex,age,helpCode,price,remark,attention,img)
+        values
+        (#{code},#{name},#{sex},#{age},#{helpCode},#{price},#{remark},#{attention},#{img})
+    </insert>
+
+    <!--绑定套餐和检查组多对多关系-->
+    <insert id="setSetmealAndCheckGroup" parameterType="hashmap">
+        insert into t_setmeal_checkgroup
+      		(setmeal_id,checkgroup_id)
+      			values
+      		(#{setmeal_id},#{checkgroup_id})
+    </insert>
+
+    <!--根据条件查询-->
+    <select id="findByCondition" parameterType="string" resultType="com.qy.pojo.Setmeal">
+        select * from t_setmeal
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
+
+    <!--查询套餐所有图片-->
+    <select id="findAll" resultType="com.qy.pojo.Setmeal">
+        select * from t_setmeal
+    </select>
+
+
+    <!--根据套餐id查询套餐详情(套餐基本信息、套餐对应的检查组信息.、检查组对应的检查项信息.)-->
+    <select id="findById" resultMap="findByIdResultMap">
+        select * from t_setmeal  where id=#{id}
+    </select>
+
+    <!--查询套餐总数-->
+    <select id="findSetmealCount" resultType="map">
+        select s.name,count(o.id) as value
+  	    from t_order o ,t_setmeal s
+  	    where o.setmeal_id = s.id
+  	    group by s.name
+    </select>
+
+
+</mapper>

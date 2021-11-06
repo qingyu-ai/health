@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../img/asset-favico.ico">
+    <title>预约详情</title>
+    <link rel="stylesheet" href="../css/page-health-orderDetail.css" />
+    <script src="../plugins/vue/vue.js"></script>
+    <script src="../plugins/vue/axios-0.18.0.js"></script>
+    <script src="../plugins/healthmobile.js"></script>
+</head>
+<body data-spy="scroll" data-target="#myNavbar" data-offset="150">
+<div id="app" class="app">
+    <!-- 页面头部 -->
+    <div class="top-header">
+        <span class="f-left"><i class="icon-back" onclick="history.go(-1)"></i></span>
+        <span class="center">传智健康</span>
+        <span class="f-right"><i class="icon-more"></i></span>
+    </div>
+    <!-- 页面内容 -->
+    <div class="contentBox">
+        <div class="card">
+            <div class="project-img">
+                <img src="http://r0sl66sar.hn-bkt.clouddn.com/a7feb134-897f-43ec-932a-5ba578856a12y.jpg"
+                     width="100%" height="100%" />
+            </div>
+            <div class="project-text">
+                <h4 class="tit">测试套餐</h4>
+                <p class="subtit">1</p>
+                <p class="keywords">
+                    <span>
+                            性别不限
+					</span>
+                    <span>12</span>
+                </p>
+            </div>
+        </div>
+        <div class="table-listbox">
+            <div class="box-title">
+                <i class="icon-zhen"><span class="path1"></span><span class="path2"></span></i>
+                <span>套餐详情</span>
+            </div>
+            <div class="box-table">
+                <div class="table-title">
+                    <div class="tit-item flex2">项目名称</div>
+                    <div class="tit-item  flex3">项目内容</div>
+                    <div class="tit-item  flex3">项目解读</div>
+                </div>
+                <div class="table-content">
+                    <ul class="table-list">
+                            <li class="table-item">
+                                <div class="item flex2">高级检查</div>
+                                <div class="item flex3">
+                                        <label>
+                                            平均红细胞体积
+                                        </label>
+                                        <label>
+                                            平均红细胞血红蛋白含量
+                                        </label>
+                                        <label>
+                                            平均红细胞血红蛋白浓度
+                                        </label>
+                                        <label>
+                                            红细胞分布宽度-变异系数
+                                        </label>
+                                        <label>
+                                            血小板计数
+                                        </label>
+                                        <label>
+                                            平均血小板体积
+                                        </label>
+                                </div>
+                                <div class="item flex3">高级检查</div>
+                            </li>
+                    </ul>
+                </div>
+                <div class="box-button">
+                    <a @click="toOrderInfo()" class="order-btn">立即预约</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var vue = new Vue({
+        el:'#app',
+        methods:{
+            toOrderInfo(){
+                window.location.href = "orderInfo.html?id=2";
+            }
+        }
+    });
+</script>
+</body>
